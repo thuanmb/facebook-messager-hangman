@@ -30,4 +30,20 @@ RSpec.describe WebhooksController, :type => :controller do
       end
     end
   end
+
+  describe "POST #create" do
+    context 'when success' do
+      let(:params) {{
+          'hub.mode' => 'subscribe',
+          'hub.verify_token' => 'awesome_facebook_messager_token',
+          'hub.challenge' => { key: 'something'}
+      }}
+
+      it "responds successfully with an HTTP 200 status code" do
+        post :create, params
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
 end

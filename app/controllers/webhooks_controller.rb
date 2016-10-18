@@ -6,6 +6,10 @@ class WebhooksController < ApplicationController
       puts "Failed validation. Make sure the validation tokens match."
       render status: 403
     end
+  end
 
+  def create
+    puts params
+    render status: 200
   end
 end
