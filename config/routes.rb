@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get 'webhooks/index'
+  resource :webhooks do
+    get :index
+  end
 end
