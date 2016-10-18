@@ -9,7 +9,7 @@ class WebhooksController < ApplicationController
   end
 
   def create
-    puts params
+    puts params.to_json
     render status: 200
   end
 end
