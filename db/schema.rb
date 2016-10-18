@@ -10,9 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20161018173807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "games", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "question_id"
+    t.boolean  "active"
+    t.boolean  "win"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_games_on_question_id", using: :btree
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "content"
+    t.string   "answer"
+    t.boolean  "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.integer  "game_id"
+    t.string   "content"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_responses_on_game_id", using: :btree
+  end
+
+  create_table "senders", force: :cascade do |t|
+    t.integer  "facebook_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_foreign_key "games", "questions"
+  add_foreign_key "responses", "games"
 end
